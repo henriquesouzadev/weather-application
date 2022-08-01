@@ -12,10 +12,13 @@ const timeImgSrc = (isDayTime) => {
    return `./src/${dayPeriod}.svg`
 }
 
-cityForm.addEventListener('submit', async (event) => {
-   event.preventDefault()
-   
-   const inputValue = cityForm.city.value
+const showCityCard = () => {
+   if (cityCard.classList.contains('d-none')) {
+      cityCard.classList.remove('d-none')
+   }
+}
+
+const showCityWeatherInfo = async (inputValue) => {
    const [{ Key, LocalizedName }] = await getCityData(inputValue)
    const [{
       WeatherText,
@@ -25,16 +28,19 @@ cityForm.addEventListener('submit', async (event) => {
    }] = await getCityWeather(Key)
    const timeIcon = `<img src="./src/icons/${WeatherIcon}.svg" />`
    
-   if (cityCard.classList.contains('d-none')) {
-      cityCard.classList.remove('d-none')
-   }
-
    timeImg.src = timeImgSrc(IsDayTime)
-
    timeIconContainer.innerHTML = timeIcon
    cityNameContainer.textContent = LocalizedName
    cityWeatherContainer.textContent = WeatherText
    cityTemperatureContainer.textContent = Temperature.Metric.Value
+}
 
+cityForm.addEventListener('submit', (event) => {
+   event.preventDefault()
+   
+   const inputValue = cityForm.city.value
+   
+   showCityCard()
+   showCityWeatherInfo(inputValue)
    cityForm.reset()
 })
