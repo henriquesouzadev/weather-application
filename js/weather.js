@@ -3,10 +3,10 @@ const baseUrl = 'http://dataservice.accuweather.com'
 
 const getCityUrl = (cityName) => {
    return `${baseUrl}/locations/v1/cities/search?apikey=${APIKey}&q=${cityName}`
-} 
+}
 
 const getWeatherUrl = (cityKey) => {
-   return `${baseUrl}/currentconditions/v1/${cityKey}?apikey=${APIKey}&language=pt-br`
+   return `${baseUrl}/currentconditions/v1/${cityKey}?apikey=${APIKey}`
 }
 
 const fetchData = async (url) => {
@@ -18,8 +18,8 @@ const fetchData = async (url) => {
       }
 
       return response.json()
-   } catch ({ name, message }) {
-      alert(`${name}: ${message}`)
+   } catch (error) {
+      alert(`${error}`)
    }
 }
 
@@ -29,5 +29,6 @@ const getCityData = (cityName) => {
 }
 
 const getCityWeather = (cityKey) => {
-   return fetchData(getWeatherUrl(cityKey))
+   const weatherUrl = getWeatherUrl(cityKey)
+   return fetchData(weatherUrl)
 }
