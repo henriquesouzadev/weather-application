@@ -6,7 +6,7 @@ const getCityUrl = (cityName) => {
 }
 
 const getWeatherUrl = (cityKey) => {
-   return `${baseUrl}/currentconditions/v1/${cityKey}?apikey=${APIKey}`
+   return `${baseUrl}/currentconditions/v1/${cityKey}?apikey=${APIKey}&language=pt-br`
 }
 
 const fetchData = async (url) => {
